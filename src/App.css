@@ -12,6 +12,14 @@
 .virtual-list {
     width: 500px;
     background: white;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.virtual-list::after {
+    content: '';
+    display: block;
+    padding-bottom: var(--virtual-list-padding-bottom, 0px);
 }
 
 .virtual-list .virtual-list-item {
