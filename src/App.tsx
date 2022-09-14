@@ -3,22 +3,12 @@ import './App.css';
 
 import List, {itemProps} from "./components/List";
 
-let data: itemProps[] = [
-    {index: 0, content: "Hello"},
-    {index: 1, content: "World"},
-    {index: 2, content: "This"},
-    {index: 3, content: "Is"},
-    {index: 4, content: "A"},
-    {index: 5, content: "List"},
-    {index: 6, content: "Of"},
-    {index: 7, content: "Items"},
-    {index: 8, content: "That"},
-    {index: 9, content: "Are"},
-    {index: 10, content: "Rendered"},
-]
 
+
+let data: itemProps[]  = new Array(100000).fill(0).map((_, i)=> ({index: i, content: `Item ${i}`}));
 
 function App() {
+    console.log(data)
     return (
         <div className="App">
             <List

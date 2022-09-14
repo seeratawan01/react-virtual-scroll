@@ -8,19 +8,16 @@
     justify-content: center;
 }
 
-
 .virtual-list {
     width: 500px;
     background: white;
     overflow: auto;
-    box-sizing: border-box;
 }
 
-.virtual-list::after {
-    content: '';
-    display: block;
-    padding-bottom: var(--virtual-list-padding-bottom, 0px);
+.virtual-list-item-wrapper {
+    position: relative;
 }
+
 
 .virtual-list .virtual-list-item {
     border-bottom: 1px solid #eee;
@@ -28,4 +25,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    width: 100%;
 }
