@@ -11,13 +11,15 @@ function App() {
     return (
         <div className="App">
             <List
-                rowHeight={40}
+                itemSize={40}
                 items={data}
                 renderItem={(item) => (
                     <div key={item.index}>
                         {item.content}
                     </div>
                 )}
+                orientation={'vertical'}
+                height={500}
             />
         </div>
     );
