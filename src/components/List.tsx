@@ -80,11 +80,11 @@ const List = (
     }
 
     /**
-     * Getting the visible item in the list
+     * Getting the visible items in the list
      */
     useEffect(() => {
         const start = Math.floor(scrollTop / rowHeight);
-        const end = start + numberOfVisibleRow;
+        const end = (start + numberOfVisibleRow) + 1; // +1 to render the next item
         setVisibleItems(items.slice(start, end));
 
     }, [scrollTop, items, numberOfVisibleRow, rowHeight]);
