@@ -62,6 +62,14 @@ const Table = (
     const [visibleItems, setVisibleItems] = React.useState<any[]>([]);
 
     /**
+     * Calculate the number of rows that can fit in the list container
+     * number of rows = height of container / height of each row
+     */
+    const numberOfVisibleRow = useMemo(() => {
+        return Math.ceil(height / itemSize);
+    }, [height, itemSize]);
+
+    /**
      * Calculate the height of the list container
      * height = length of items * height of each item
      */
@@ -74,11 +82,15 @@ const Table = (
      */
     useEffect(() => {
         let start  = Math.floor(scroll / itemSize);
-        let end = start + Math.ceil(height / itemSize) + buffer;
-        setVisibleItems(items.slice(start, end));
+        const end = (start + numberOfVisibleRow) + buffer;
 
-        console.log("start", start);
-    }, [scroll, items, itemSize, buffer, height]);
+        const itemsToRender = items.slice(start, end)
+        itemsToRender.forEach((item, index) => {
+            item.index = start + index;
+        })
+        setVisibleItems(itemsToRender);
+
+    }, [scroll, items, itemSize, buffer, height, numberOfVisibleRow]);
 
     /**
      * Method to handle scroll events
@@ -111,12 +123,11 @@ const Table = (
                 {visibleItems.map((item, index) => {
                    return (
                           <div key={index} className='virtual-list-row' style={{
-                              transform: 'translateY(' + getItemOffset(index) + 'px)',
+                              height: itemSize,
+                              transform: 'translateY(' + getItemOffset(item.index) + 'px)',
                           }}>
-                                {fields.map((field, index) => (
-                                    <div key={index} className='virtual-list-row-item' style={{
-                                        height: itemSize
-                                    }}>
+                                {fields.map((field, key) => (
+                                    <div key={key} className='virtual-list-row-item'>
                                         {item[field.key]}
                                     </div>
                                 ))}

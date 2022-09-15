@@ -20,12 +20,12 @@ export interface ListProps {
     /**
      * The items to render in the list
      */
-    items: itemProps[],
+    items: any[],
 
     /**
      * The Render function for each item in the list
      */
-    renderItem: (item: itemProps) => JSX.Element | null
+    renderItem: (item: any) => JSX.Element | null
 
     /**
      * The item's buffer to render in the list
@@ -36,18 +36,6 @@ export interface ListProps {
      * The orientation of the list
      */
     orientation?: "vertical" | "horizontal"
-}
-
-export interface itemProps {
-    /**
-     * The index of the item in the list
-     */
-    index: number,
-
-    /**
-     * The item's content to render
-     */
-    content: string | number | JSX.Element | any | null,
 }
 
 /**
@@ -75,7 +63,7 @@ const List = (
 
     const [scrollTop, setScrollTop] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
-    const [visibleItems, setVisibleItems] = React.useState<itemProps[]>([]);
+    const [visibleItems, setVisibleItems] = React.useState<any[]>([]);
 
     /**
      * Calculate the number of rows that can fit in the list container
@@ -126,11 +114,19 @@ const List = (
         if (orientation === "horizontal") {
             const startIndex = Math.floor(scrollLeft / itemSize);
             const endIndex = startIndex + numberOfVisibleColumn + buffer;
-            setVisibleItems(items.slice(startIndex, endIndex));
+            const itemsToRender = items.slice(startIndex, endIndex)
+            itemsToRender.forEach((item, index) => {
+                item.index = startIndex + index;
+            })
+            setVisibleItems(itemsToRender);
         } else {
-            const start = Math.floor(scrollTop / itemSize);
-            const end = (start + numberOfVisibleRow) + buffer;
-            setVisibleItems(items.slice(start, end));
+            const startIndex = Math.floor(scrollTop / itemSize);
+            const endIndex = (startIndex + numberOfVisibleRow) + buffer;
+            const itemsToRender = items.slice(startIndex, endIndex)
+            itemsToRender.forEach((item, index) => {
+                item.index = startIndex + index;
+            })
+            setVisibleItems(items.slice(startIndex, endIndex));
         }
 
     }, [scrollTop, scrollLeft, items, itemSize, buffer, orientation, numberOfVisibleRow, numberOfVisibleColumn]);

@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 
-// import List, {itemProps} from "./components/List";
+import List from "./components/List";
 import Table, {fieldProps} from "./components/Table";
 
 
-// let data: itemProps[]  = new Array(100000).fill(0).map((_, i)=> ({index: i, content: `Item ${i}`}));
+let list: any[]  = new Array(100000).fill(0).map((_, i)=> ({index: i, content: `Item ${i}`}));
 
 let fields:fieldProps[] = [
     {key: 'name', name: 'Name'},
@@ -30,6 +30,26 @@ let data: any[]  = [
     {name: '14', age: 25, description: 'Software engineer'},
     {name: '15', age: 25, description: 'Software engineer'},
     {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
 ];
 
 function App() {
@@ -41,6 +61,19 @@ function App() {
                 items={data}
                 height={500}
                 width={800}
+                buffer={3}
+            />
+
+            <List
+                itemSize={40}
+                items={list}
+                renderItem={(item) => (
+                    <div>
+                        {item.content}
+                    </div>
+                )}
+                orientation={'vertical'}
+                height={400}
             />
         </div>
     );
