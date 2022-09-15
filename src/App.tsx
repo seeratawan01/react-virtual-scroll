@@ -5,18 +5,14 @@ import Table, {fieldProps} from "./components/Table";
 import {tableDataGenerator, userNameListGenerator} from "./generator";
 import { Link } from "react-router-dom";
 
-let list: any[]  = userNameListGenerator(100000);
-
-let fields:fieldProps[] = [
-    {key: 'name', name: 'Name'},
-    {key: 'age', name: 'Age'},
-    {key: 'company', name: 'Company'}
-]
-
-let data: any[]  = tableDataGenerator(100000);
-
 function App() {
 
+    const [tableData, setTableData] = React.useState(tableDataGenerator(100000));
+    const [listData, setListData] = React.useState(userNameListGenerator(100000));
+
+    const addNewItems = () => {
+        setTableData(tableData.concat(tableDataGenerator(100000)));
+    }
     return (
         <div className="App">
 
@@ -33,10 +29,17 @@ function App() {
                 </nav>
             </div>
 
+            <div className="container">
+                <button onClick={addNewItems}>Add new items</button>
+            </div>
             <Table
                 itemSize={60}
-                fields={fields}
-                items={data}
+                fields={[
+                    {key: 'name', name: 'Name'},
+                    {key: 'age', name: 'Age'},
+                    {key: 'company', name: 'Company'}
+                ]}
+                items={tableData}
                 height={500}
                 width={800}
                 buffer={3}
@@ -47,7 +50,7 @@ function App() {
 
             {/*<List*/}
             {/*    itemSize={40}*/}
-            {/*    items={list}*/}
+            {/*    items={listData}*/}
             {/*    renderItem={(item) => (*/}
             {/*        <div>*/}
             {/*            {item.content}*/}
