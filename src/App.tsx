@@ -1,60 +1,38 @@
 import React from 'react';
 import './App.css';
-
 import List from "./components/List";
 import Table, {fieldProps} from "./components/Table";
+import {tableDataGenerator, userNameListGenerator} from "./generator";
+import { Link } from "react-router-dom";
 
-
-let list: any[]  = new Array(100000).fill(0).map((_, i)=> ({index: i, content: `Item ${i}`}));
+let list: any[]  = userNameListGenerator(100000);
 
 let fields:fieldProps[] = [
     {key: 'name', name: 'Name'},
     {key: 'age', name: 'Age'},
-    {key: 'description', name: 'Description'}
+    {key: 'company', name: 'Company'}
 ]
 
-let data: any[]  = [
-    {name: '1', age: 25, description: 'Software engineer'},
-    {name: '2', age: 25, description: 'Software engineer'},
-    {name: '3', age: 25, description: 'Software engineer'},
-    {name: '4', age: 25, description: 'Software engineer'},
-    {name: '5', age: 25, description: 'Software engineer'},
-    {name: '6', age: 25, description: 'Software engineer'},
-    {name: '7', age: 25, description: 'Software engineer'},
-    {name: '8', age: 25, description: 'Software engineer'},
-    {name: '9', age: 25, description: 'Software engineer'},
-    {name: '10', age: 25, description: 'Software engineer'},
-    {name: '11', age: 25, description: 'Software engineer'},
-    {name: '12', age: 25, description: 'Software engineer'},
-    {name: '13', age: 25, description: 'Software engineer'},
-    {name: '14', age: 25, description: 'Software engineer'},
-    {name: '15', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-    {name: '16', age: 25, description: 'Software engineer'},
-];
+let data: any[]  = tableDataGenerator(100000);
 
 function App() {
+
     return (
         <div className="App">
+
+            <div>
+                <h1>Virtual Scroll Demo</h1>
+                <nav
+                    style={{
+                        borderBottom: "solid 1px",
+                        paddingBottom: "1rem",
+                    }}
+                >
+                    <Link to="/table">Virtual Table</Link> |{" "}
+                    <Link to="/list">Virtual List</Link>
+                </nav>
+            </div>
+
             <Table
                 itemSize={60}
                 fields={fields}
@@ -67,17 +45,17 @@ function App() {
                 }}
             />
 
-            <List
-                itemSize={40}
-                items={list}
-                renderItem={(item) => (
-                    <div>
-                        {item.content}
-                    </div>
-                )}
-                orientation={'vertical'}
-                height={400}
-            />
+            {/*<List*/}
+            {/*    itemSize={40}*/}
+            {/*    items={list}*/}
+            {/*    renderItem={(item) => (*/}
+            {/*        <div>*/}
+            {/*            {item.content}*/}
+            {/*        </div>*/}
+            {/*    )}*/}
+            {/*    orientation={'vertical'}*/}
+            {/*    height={400}*/}
+            {/*/>*/}
         </div>
     );
 }
