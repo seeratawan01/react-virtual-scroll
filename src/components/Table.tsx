@@ -1,4 +1,4 @@
-import React, {ReactNode, UIEvent, useMemo} from "react";
+import React, {ReactNode, UIEvent, useEffect, useMemo} from "react";
 
 export interface TableProps {
 
@@ -59,6 +59,7 @@ const Table = (
 ) => {
 
     const [scroll, setScroll] = React.useState(0);
+    const [visibleItems, setVisibleItems] = React.useState<any[]>([]);
 
     /**
      * Calculate the height of the list container
@@ -69,11 +70,29 @@ const Table = (
     }, [items, itemSize]);
 
     /**
+     * Getting the visible items in the table
+     */
+    useEffect(() => {
+        let start  = Math.floor(scroll / itemSize);
+        let end = start + Math.ceil(height / itemSize) + buffer;
+        setVisibleItems(items.slice(start, end));
+
+        console.log("start", start);
+    }, [scroll, items, itemSize, buffer, height]);
+
+    /**
      * Method to handle scroll events
      * @param event
      */
     const handleScroll = (event: UIEvent<HTMLDivElement>) => {
         setScroll(event.currentTarget.scrollTop);
+    }
+
+    /**
+     * Method to calculate the offset of each item in the list
+     */
+    const getItemOffset= (index: number) => {
+        return index * itemSize
     }
 
     return (
@@ -89,11 +108,15 @@ const Table = (
                     ))}
                 </div>
 
-                {items.map((item, index) => {
+                {visibleItems.map((item, index) => {
                    return (
-                          <div key={index} className='virtual-list-row'>
+                          <div key={index} className='virtual-list-row' style={{
+                              transform: 'translateY(' + getItemOffset(index) + 'px)',
+                          }}>
                                 {fields.map((field, index) => (
-                                    <div key={index} className='virtual-list-row-item' style={{height: itemSize}}>
+                                    <div key={index} className='virtual-list-row-item' style={{
+                                        height: itemSize
+                                    }}>
                                         {item[field.key]}
                                     </div>
                                 ))}

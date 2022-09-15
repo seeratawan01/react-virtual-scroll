@@ -10,26 +10,26 @@ import Table, {fieldProps} from "./components/Table";
 let fields:fieldProps[] = [
     {key: 'name', name: 'Name'},
     {key: 'age', name: 'Age'},
-    {key: 'description', name: 'Description'},
+    {key: 'description', name: 'Description'}
 ]
 
 let data: any[]  = [
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
-    {name: 'Seerat Awan', age: 25, description: 'Software engineer'},
-    {name: 'Brian Vaughn', age: 25, description: 'Software engineer'},
+    {name: '1', age: 25, description: 'Software engineer'},
+    {name: '2', age: 25, description: 'Software engineer'},
+    {name: '3', age: 25, description: 'Software engineer'},
+    {name: '4', age: 25, description: 'Software engineer'},
+    {name: '5', age: 25, description: 'Software engineer'},
+    {name: '6', age: 25, description: 'Software engineer'},
+    {name: '7', age: 25, description: 'Software engineer'},
+    {name: '8', age: 25, description: 'Software engineer'},
+    {name: '9', age: 25, description: 'Software engineer'},
+    {name: '10', age: 25, description: 'Software engineer'},
+    {name: '11', age: 25, description: 'Software engineer'},
+    {name: '12', age: 25, description: 'Software engineer'},
+    {name: '13', age: 25, description: 'Software engineer'},
+    {name: '14', age: 25, description: 'Software engineer'},
+    {name: '15', age: 25, description: 'Software engineer'},
+    {name: '16', age: 25, description: 'Software engineer'},
 ];
 
 function App() {
