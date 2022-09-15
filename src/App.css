@@ -46,3 +46,31 @@
 .virtual-list.virtual-list-horizontal .virtual-list-item {
     height: 100% !important;
 }
+
+.virtual-list .virtual-list-column, .virtual-list .virtual-list-row {
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.virtual-list .virtual-list-column {
+    background-color: #f8f8f0;
+    position: sticky;
+    top: 0;
+}
+
+.virtual-list .virtual-list-row:nth-child(odd) {
+    background-color: #f8f8f0;
+}
+
+.virtual-list .virtual-list-column .virtual-list-column-item,
+.virtual-list .virtual-list-row .virtual-list-row-item
+{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -47,7 +47,7 @@ export interface itemProps {
     /**
      * The item's content to render
      */
-    content: string | number | JSX.Element | null,
+    content: string | number | JSX.Element | any | null,
 }
 
 /**
@@ -112,10 +112,10 @@ const List = (
      * @param event
      */
     const handleScroll = (event: UIEvent<HTMLDivElement>) => {
-        if (orientation === "vertical") {
-            setScrollTop(event.currentTarget.scrollTop);
-        } else {
+        if (orientation === "horizontal") {
             setScrollLeft(event.currentTarget.scrollLeft);
+        } else {
+            setScrollTop(event.currentTarget.scrollTop);
         }
     }
 
@@ -139,7 +139,7 @@ const List = (
     /**
      * Method to calculate the offset of each item in the list
      */
-    const getItemOffset = (index: number) => {
+    const getItemOffsetStyle = (index: number) => {
         if (orientation === "horizontal") {
             return `translateX(${index * itemSize}px)`;
         }
@@ -168,8 +168,7 @@ const List = (
                             style={{
                                 width: itemSize,
                                 height: itemSize,
-                                overflow: 'hidden',
-                                transform: getItemOffset(item.index)
+                                transform: getItemOffsetStyle(item.index)
                             }}
                         >
                             {renderItem(item)}
