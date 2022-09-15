@@ -62,6 +62,9 @@ function App() {
                 height={500}
                 width={800}
                 buffer={3}
+                renderItem={(item) => {
+                    return <div>{item}</div>
+                }}
             />
 
             <List

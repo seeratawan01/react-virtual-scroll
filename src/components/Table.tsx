@@ -27,6 +27,10 @@ export interface TableProps {
      */
     items: any[],
 
+    /**
+     * The Render function for each cell in the row
+     */
+    renderItem: (item: any, fieldName: string) => JSX.Element | null
 
     /**
      * The item's buffer to render in the list
@@ -55,6 +59,7 @@ const Table = (
         fields = [],
         items = [],
         buffer = 2,
+        renderItem = () => null
     }: TableProps
 ) => {
 
@@ -128,7 +133,7 @@ const Table = (
                           }}>
                                 {fields.map((field, key) => (
                                     <div key={key} className='virtual-list-row-item'>
-                                        {item[field.key]}
+                                        {renderItem(item[field.key], field.key)}
                                     </div>
                                 ))}
                             </div>
