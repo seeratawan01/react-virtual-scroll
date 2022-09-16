@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {Link, Route, Routes} from "react-router-dom";
-import { Outlet } from "react-router-dom";
 import TableDemo from "./pages/TableDemo";
 import ListDemo from "./pages/ListDemo";
 function App() {

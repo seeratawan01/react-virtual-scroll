@@ -150,6 +150,7 @@ const List = (
             onScroll={handleScroll}
         >
             <div className='virtual-list-item-wrapper'
+                 data-testid="list-item-wrapper"
                  style={
                      orientation === 'horizontal' ?
                          {minWidth: scrollWidth, height: '100%'} :

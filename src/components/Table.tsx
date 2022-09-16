@@ -115,6 +115,7 @@ const Table = (
     return (
         <div className='virtual-list'  style={{height: height, width: width}}  onScroll={handleScroll}>
             <div className='virtual-list-item-wrapper'
+                 data-testid="table-item-wrapper"
                  style={{height: scrollHeight, width: width}}
             >
                 <div className='virtual-list-column'>
