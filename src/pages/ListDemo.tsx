@@ -1,6 +1,6 @@
 import List from '../components/List'
 import React from "react";
-import {userNameListGenerator} from "../generator";
+import {userNameListGenerator} from "../utils/generator";
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 

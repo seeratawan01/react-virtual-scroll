@@ -1,7 +1,7 @@
 import Table from "../components/Table";
 import React from "react";
 import Button from 'react-bootstrap/Button';
-import {tableDataGenerator} from "../generator";
+import {tableDataGenerator} from "../utils/generator";
 
 const TableDemo = () => {
     const [tableData, setTableData] = React.useState(tableDataGenerator(100000));

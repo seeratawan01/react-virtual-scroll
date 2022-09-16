@@ -4,7 +4,7 @@ import App from './App';
 import List from "./components/List";
 import Table from "./components/Table";
 import {MemoryRouter as Router} from 'react-router-dom';
-import {tableDataGenerator, userNameListGenerator} from "./generator";
+import {tableDataGenerator, userNameListGenerator} from "./utils/generator";
 
 describe('Main App Component', () => {
 
