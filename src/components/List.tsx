@@ -1,6 +1,12 @@
 import React, {UIEvent, useEffect, useMemo} from "react";
+import {classNames} from "../utils";
 
 export interface ListProps {
+
+    /**
+     * The class name of the table
+     */
+    className?: string,
 
     /**
      * The height of list container
@@ -51,6 +57,7 @@ export interface ListProps {
  */
 const List = (
     {
+        className = '',
         height = 300,
         width = 300,
         itemSize = 35,
@@ -145,7 +152,7 @@ const List = (
 
     return (
         <div
-            className={`virtual-list ${orientation === 'horizontal' ? 'virtual-list-horizontal' : 'virtual-list-vertical'}`}
+            className={classNames('virtual-list', orientation === 'horizontal' ? 'virtual-list-horizontal' : 'virtual-list-vertical' , className)}
             style={{height: height, width: width}}
             onScroll={handleScroll}
         >

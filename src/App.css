@@ -1,12 +1,4 @@
-.App {
-    text-align: center;
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .virtual-list {
     width: 500px;
@@ -45,6 +37,7 @@
 
 .virtual-list.virtual-list-horizontal .virtual-list-item {
     height: 100% !important;
+    border-right: 1px solid #eee;
 }
 
 .virtual-list .virtual-list-column, .virtual-list .virtual-list-row {
@@ -66,6 +59,7 @@
     position: sticky;
     top: 0;
     z-index: 9;
+    font-weight: bold;
 }
 
 

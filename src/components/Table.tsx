@@ -1,6 +1,12 @@
 import React, {ReactNode, UIEvent, useEffect, useMemo} from "react";
+import {classNames} from "../utils";
 
 export interface TableProps {
+
+    /**
+     * The class name of the table
+     */
+    className?: string,
 
     /**
      * The height of table container
@@ -53,6 +59,7 @@ export interface fieldProps {
 
 const Table = (
     {
+        className = '',
         height = 300,
         width = 300,
         itemSize = 35,
@@ -113,7 +120,7 @@ const Table = (
     }
 
     return (
-        <div className='virtual-list'  style={{height: height, width: width}}  onScroll={handleScroll}>
+        <div className={classNames('virtual-list', className)} style={{height: height, width: width}}  onScroll={handleScroll}>
             <div className='virtual-list-item-wrapper'
                  data-testid="table-item-wrapper"
                  style={{height: scrollHeight, width: width}}

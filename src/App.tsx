@@ -3,31 +3,32 @@ import './App.css';
 import {Link, Route, Routes} from "react-router-dom";
 import TableDemo from "./pages/TableDemo";
 import ListDemo from "./pages/ListDemo";
+
+import Container from 'react-bootstrap/Container';
+
 function App() {
 
 
     return (
-        <div className="App">
-
-            <div>
-                <h1>Virtual Scroll Demo</h1>
+        <Container className="App">
+            <div className={'text-center py-5 bg-light bg-gradient'}>
+                <h1 className='mb-3 fw-semibold'>Virtual Scroll Demo</h1>
                 <nav
-                    style={{
-                        borderBottom: "solid 1px",
-                        paddingBottom: "1rem",
-                    }}
                 >
-                    <Link to="/">Virtual Table</Link> |{" "}
-                    <Link to="/list">Virtual List</Link>
+                    <Link to="/" className='icon-link fw-semibold justify-content-center'>Virtual Table</Link>
+                    <span className='px-4'>|</span>
+                    <Link to="/list" className='icon-link fw-semibold justify-content-center'>Virtual List</Link>
                 </nav>
             </div>
 
-            <Routes>
-                <Route path="/" element={<TableDemo />} />
-                <Route path="list" element={<ListDemo />}/>
-            </Routes>
+            <main className='bg-light bg-gradient mt-3'>
+                <Routes>
+                    <Route path="/" element={<TableDemo />} />
+                    <Route path="list" element={<ListDemo />}/>
+                </Routes>
+            </main>
 
-        </div>
+        </Container>
     );
 }
 
