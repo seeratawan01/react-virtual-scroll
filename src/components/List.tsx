@@ -1,5 +1,6 @@
-import React, {UIEvent, useEffect, useMemo} from "react";
+import React, {UIEvent, useEffect, useMemo, useRef} from "react";
 import {classNames} from "../utils";
+import Button from "react-bootstrap/Button";
 
 export interface ListProps {
 
@@ -39,6 +40,12 @@ export interface ListProps {
     buffer?: number
 
     /**
+     * Optional control to show back to top button
+     * Note: This will only work if the list is vertical
+     */
+    backToTop?: boolean
+
+    /**
      * The orientation of the list
      */
     orientation?: "vertical" | "horizontal"
@@ -64,13 +71,23 @@ const List = (
         items = [],
         renderItem = () => null,
         buffer = 2,
-        orientation = "vertical"
+        orientation = "vertical",
+        backToTop = true
     }: ListProps
 ) => {
 
     const [scrollTop, setScrollTop] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
     const [visibleItems, setVisibleItems] = React.useState<any[]>([]);
+
+    const scrollableView = useRef<any>(null);
+
+    /**
+     * Validate conditions to show back to top button
+     */
+    const showBackToTop = useMemo(() => {
+        return backToTop && orientation === "vertical" && scrollTop > itemSize * 2;
+    }, [backToTop, orientation, scrollTop, itemSize]);
 
     /**
      * Calculate the number of rows that can fit in the list container
@@ -150,37 +167,55 @@ const List = (
         return `translateY(${index * itemSize}px)`;
     }
 
-    return (
-        <div
-            className={classNames('virtual-list', orientation === 'horizontal' ? 'virtual-list-horizontal' : 'virtual-list-vertical' , className)}
-            style={{height: height, width: width}}
-            onScroll={handleScroll}
-        >
-            <div className='virtual-list-item-wrapper'
-                 data-testid="list-item-wrapper"
-                 style={
-                     orientation === 'horizontal' ?
-                         {minWidth: scrollWidth, height: '100%'} :
-                         {minHeight: scrollHeight, width: '100%'}
-                 }
-            >
-                {
-                    visibleItems.map((item, index) => (
-                        <div
-                            className={'virtual-list-item'}
-                            key={index}
-                            style={{
-                                width: itemSize,
-                                height: itemSize,
-                                transform: getItemOffsetStyle(item.index)
-                            }}
-                        >
-                            {renderItem(item)}
-                        </div>
-                    ))
-                }
-            </div>
+    /**
+     * Method to smooth scroll back to the top of scrollable div
+     */
+    const scrollToTop = () => {
+        if (scrollableView.current) {
+            scrollableView.current.scrollTo(0, 0);
+        }
+    }
 
+    return (
+        <div className='position-relative'>
+            {
+                showBackToTop && (
+                    <Button className='position-absolute bottom-0' style={{right: '-7%'}} variant='secondary'
+                            onClick={scrollToTop} title={'Back to top'}>↑</Button>
+                )
+            }
+            <div
+                className={classNames('virtual-list', orientation === 'horizontal' ? 'virtual-list-horizontal' : 'virtual-list-vertical', className)}
+                style={{height: height, width: width}}
+                ref={scrollableView}
+                onScroll={handleScroll}
+            >
+                <div className='virtual-list-item-wrapper'
+                     data-testid="list-item-wrapper"
+                     style={
+                         orientation === 'horizontal' ?
+                             {minWidth: scrollWidth, height: '100%'} :
+                             {minHeight: scrollHeight, width: '100%'}
+                     }
+                >
+                    {
+                        visibleItems.map((item, index) => (
+                            <div
+                                className={'virtual-list-item'}
+                                key={index}
+                                style={{
+                                    width: itemSize,
+                                    height: itemSize,
+                                    transform: getItemOffsetStyle(item.index)
+                                }}
+                            >
+                                {renderItem(item)}
+                            </div>
+                        ))
+                    }
+                </div>
+
+            </div>
         </div>
     )
 }

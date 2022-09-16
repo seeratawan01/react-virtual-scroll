@@ -4,6 +4,7 @@
     width: 500px;
     background: white;
     overflow: auto;
+    scroll-behavior: smooth;
 }
 
 .virtual-list-vertical {

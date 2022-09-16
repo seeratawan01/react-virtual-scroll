@@ -1,5 +1,6 @@
-import React, {ReactNode, UIEvent, useEffect, useMemo} from "react";
+import React, {ReactNode, UIEvent, useEffect, useMemo, useRef} from "react";
 import {classNames} from "../utils";
+import Button from "react-bootstrap/Button";
 
 export interface TableProps {
 
@@ -39,6 +40,12 @@ export interface TableProps {
     renderItem: (item: any, fieldName: string) => JSX.Element | null
 
     /**
+     * Optional control to show back to top button
+     * Note: This will only work if the list is vertical
+     */
+    backToTop?: boolean
+
+    /**
      * The item's buffer to render in the list
      */
     buffer?: number
@@ -66,12 +73,23 @@ const Table = (
         fields = [],
         items = [],
         buffer = 2,
-        renderItem = () => null
+        renderItem = () => null,
+        backToTop = true
     }: TableProps
 ) => {
 
     const [scroll, setScroll] = React.useState(0);
     const [visibleItems, setVisibleItems] = React.useState<any[]>([]);
+
+    const scrollableView = useRef<any>(null);
+
+    /**
+     * Validate conditions to show back to top button
+     */
+    const showBackToTop = useMemo(() => {
+        return backToTop && scroll > itemSize * 2;
+    }, [scroll, backToTop]);
+
 
     /**
      * Calculate the number of rows that can fit in the list container
@@ -119,26 +137,45 @@ const Table = (
         return index * itemSize
     }
 
-    return (
-        <div className={classNames('virtual-list', className)} style={{height: height, width: width}}  onScroll={handleScroll}>
-            <div className='virtual-list-item-wrapper'
-                 data-testid="table-item-wrapper"
-                 style={{height: scrollHeight, width: width}}
-            >
-                <div className='virtual-list-column'>
-                    {fields.map((field, index) => (
-                        <div key={index} className='virtual-list-column-item' style={{height: itemSize}}>
-                            {field.name}
-                        </div>
-                    ))}
-                </div>
+    /**
+     * Method to smooth scroll back to the top of scrollable div
+     */
+    const scrollToTop = () => {
+        if (scrollableView.current) {
+            scrollableView.current.scrollTo(0, 0);
+        }
+    }
 
-                {visibleItems.map((item, index) => {
-                   return (
-                          <div key={index} className='virtual-list-row' style={{
-                              height: itemSize,
-                              transform: 'translateY(' + getItemOffset(item.index) + 'px)',
-                          }}>
+    return (
+        <div className='position-relative'>
+            {
+                showBackToTop && (
+                    <Button className='position-absolute bottom-0' style={{right: '-7%'}} variant='secondary'
+                            onClick={scrollToTop} title={'Back to top'}>↑</Button>
+                )
+            }
+            <div className={classNames('virtual-list', className)}
+                 ref={scrollableView}
+                 style={{height: height, width: width}}
+                 onScroll={handleScroll}>
+                <div className='virtual-list-item-wrapper'
+                     data-testid="table-item-wrapper"
+                     style={{height: scrollHeight, width: width}}
+                >
+                    <div className='virtual-list-column'>
+                        {fields.map((field, index) => (
+                            <div key={index} className='virtual-list-column-item' style={{height: itemSize}}>
+                                {field.name}
+                            </div>
+                        ))}
+                    </div>
+
+                    {visibleItems.map((item, index) => {
+                        return (
+                            <div key={index} className='virtual-list-row' style={{
+                                height: itemSize,
+                                transform: 'translateY(' + getItemOffset(item.index) + 'px)',
+                            }}>
                                 {fields.map((field, key) => (
                                     <div key={key} className='virtual-list-row-item'>
                                         {renderItem(item[field.key], field.key)}
@@ -146,8 +183,9 @@ const Table = (
                                 ))}
                             </div>
                         )
-                })}
+                    })}
 
+                </div>
             </div>
         </div>
     )
